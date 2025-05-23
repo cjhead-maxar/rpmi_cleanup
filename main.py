@@ -1,6 +1,6 @@
 import argparse
 import logging
-
+import tarfile
 from enum import Enum
 from pathlib import Path
 
@@ -37,6 +37,22 @@ def download_granule(bucket: Bucket, granule: str) -> None:
         The granule for which to download files from AWS.
     """
     pass
+def tar_archive(dest: Path, granule: str) -> None:
+    """
+    Creates a tar file with the selected granule's archive files.
+
+    Parameters
+    ---------
+    dest : Path
+        The top level destination directory for the archived files.
+    granule : string
+        The granule for which to download files from AWS.
+    """
+    tar_dir = dest / granule
+    tar_file = tar_dir.with_suffix(".tar")
+
+    with tarfile.open(tar_file, "w") as tar:
+        tar.add(tar_dir, recursive=True)
 
 
 def main() -> None:
