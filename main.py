@@ -1,15 +1,19 @@
 import logging
+from enum import Enum
 from pathlib import Path
 
 import boto3
 from botocore.config import Config
 
-PROCESSING_BUCKET = "rpmi-processing-us-east-1-production"
-STATIC_BUCKET = "rpmi-static-us-east-1"
-ARCHIVE_BUCKET = "rpmi-archive-us-east-1-production"
-SHORT_TERM_ARCHIVE_BUCKET = "rpmi-short-term-archive-us-east-1-production"
-DELIVERABLE_ARCHIVE_BUCKET = "rpmi-deliverable-archive-us-east-1-production"
-PCM_ARCHIVE_BUCKET = "rpmi-pcm-archive-us-east-1-production"
+
+class Bucket(Enum):
+    PROCESSING = "rpmi-processing-us-east-1-production"
+    STATIC = "rpmi-static-us-east-1"
+    ARCHIVE = "rpmi-archive-us-east-1-production"
+    SHORT_TERM_ARCHIVE = "rpmi-short-term-archive-us-east-1-production"
+    DELIVERABLE_ARCHIVE = "rpmi-deliverable-archive-us-east-1-production"
+    PCM_ARCHIVE = "rpmi-pcm-archive-us-east-1-production"
+
 
 config = Config(
     retries={"total_max_attempts": 5, "mode": "adaptive"},
