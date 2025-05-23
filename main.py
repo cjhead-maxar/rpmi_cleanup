@@ -69,7 +69,7 @@ def main() -> None:
     )
     args = parser.parse_args()
     if args.dest:
-        dest = args.dest
+        dest = Path(args.dest)
     if args.granules:
         granules.extend(args.granules)
     if args.granule_list:
