@@ -25,8 +25,16 @@ session = boto3.session.Session()
 s3 = session.client("s3", config=config)
 
 
-def main() -> None:
+def download_granule(bucket: Bucket, granule: str) -> None:
     """
+    Downloads granule specific files from AWS bucket.
+
+    Parameters
+    ---------
+    bucket : Bucket
+        AWS bucket
+    granule : string
+        The granule for which to download files from AWS.
     """
     pass
 
