@@ -6,6 +6,7 @@ from pathlib import Path
 
 import boto3
 from botocore.config import Config
+from botocore.exceptions import ClientError
 
 
 class Bucket(Enum):
@@ -92,6 +93,17 @@ def main() -> None:
         with args.granule_list as granule_list:
             granules.extend(granule_list.read().splitlines())
 
+    try:
+        download_granule_from_aws(
+            # Bucket.ARCHIVE, f"{granule}/prior/", dest,
+            Bucket.ARCHIVE, f"{granule}/", dest,
+        )
+        # tar_archive(dest, granules[0])
+    except ClientError:
+        print(
+            "Botocore client error. "
+            "Try updating AWS credentials and try again"
+        )
 
 if __name__ == "__main__":
     main()
