@@ -1,6 +1,7 @@
 import argparse
 import concurrent.futures
 import logging
+import os
 import subprocess
 from pathlib import Path
 
@@ -37,6 +38,7 @@ def run_shell_script(granule: str) -> None:
 
 
 def main() -> None:
+    max_threads = os.cpu_count()
     granules = []
 
     parser = argparse.ArgumentParser()
@@ -61,7 +63,7 @@ def main() -> None:
         with args.granule_list as granule_list:
             granules.extend(granule_list.read().splitlines())
 
-    with concurrent.futures.ThreadPoolExecutor(max_workers=5) as executor:
+    with concurrent.futures.ThreadPoolExecutor(max_workers=max_threads) as executor:
         executor.map(run_shell_script, granules)
 
 
