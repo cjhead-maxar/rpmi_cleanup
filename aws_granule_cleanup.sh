@@ -32,3 +32,4 @@ aws s3 mv ${archive_bucket}${GRANULE}/ ${gir_archive_bucket}${GRANULE}/ --recurs
 
 tar -cf ${GRANULE}.tar ${GRANULE}
 aws s3 mv ${GRANULE}.tar ${gir_archive_bucket}${GRANULE}/
+rm ${GRANULE}.tar
