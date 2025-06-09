@@ -10,9 +10,7 @@ GRANULE=$1
 archive_bucket="s3://rpmi-archive-us-east-1-production/"
 gir_archive_bucket="s3://rpmi-archive-us-east-1-production/gir/"
 
-# TODO: masked vs masked_v01?
-#prefixes=("text/" "prior/" "masked_v01/")
-prefixes=("text/" "prior/" "masked/")
+prefixes=("text/" "prior/" "masked")
 
 [[ -d ${GRANULE} ]] || mkdir ${GRANULE}
 
@@ -22,7 +20,7 @@ for prefix in ${prefixes[@]}; do
 
     [[ -d ${local_dir} ]] || mkdir ${local_dir}
 
-    if [ ${prefix} = "masked/" ]; then
+    if [ ${prefix} = "masked" ]; then
         aws s3 mv ${dir} ${local_dir} --recursive --exclude "*" --include "*.ip3"
     else
         aws s3 mv ${dir} ${local_dir} --recursive
