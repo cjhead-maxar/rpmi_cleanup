@@ -39,7 +39,7 @@ aws s3 mv ${archive_bucket}/${GRANULE}/ \
     --recursive
 
 tar -cf ${GRANULE}.tar ${GRANULE}
-aws s3 mv ${GRANULE}.tar ${gir_archive_bucket}${GRANULE}/
+aws s3 mv ${GRANULE}.tar ${gir_archive_bucket}/${GRANULE}/
 
 IFS=$'\n' read -d '' -r -a gran_dirs < <(ls ${GRANULE})
 for index in ${!gran_dirs[@]}; do
